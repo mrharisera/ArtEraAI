@@ -1,11 +1,7 @@
-# ArtEraAI
-
-## Deploy
-1. Import this folder into Vercel.
-2. Add an environment variable named `HF_TOKEN`.
-3. Put your Hugging Face access token in that variable.
-4. Deploy.
-
-The token stays server-side; it is not placed in the HTML.
-
-The current backend uses Hugging Face Inference Providers. Availability and free credits can change, so generation depends on the account/provider's current access and remaining credits.
+# ArtEraAI V3
+1. Keep `index.html` in repository root.
+2. Keep `api/generate.js` exactly in the `api` folder.
+3. Keep `package.json` in the repository root.
+4. In Vercel Environment Variables keep `HF_TOKEN` set for Production.
+5. Commit changes and let Vercel redeploy.
+The Hugging Face token stays server-side. V3 adds Smart Prompt, styles, 4 canvas ratios, reference-image mode with safe fallback, gallery, preview and download.

@@ -1,9 +1,7 @@
 {
-  "name": "artera-ai",
-  "version": "1.0.0",
-  "private": true,
-  "type": "module",
-  "dependencies": {
-    "@huggingface/inference": "^4.13.5"
-  }
+  "name":"artera-ai",
+  "version":"3.0.0",
+  "private":true,
+  "type":"module",
+  "dependencies":{"@huggingface/inference":"^4.13.5"}
 }
