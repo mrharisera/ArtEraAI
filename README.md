@@ -1,7 +1,4 @@
-# ArtEraAI V3
-1. Keep `index.html` in repository root.
-2. Keep `api/generate.js` exactly in the `api` folder.
-3. Keep `package.json` in the repository root.
-4. In Vercel Environment Variables keep `HF_TOKEN` set for Production.
-5. Commit changes and let Vercel redeploy.
-The Hugging Face token stays server-side. V3 adds Smart Prompt, styles, 4 canvas ratios, reference-image mode with safe fallback, gallery, preview and download.
+# ArtEraAI V4
+Upload these files to the root of your GitHub repository. Keep `api/generate.js` inside `api/`.
+In Vercel → Settings → Environment Variables add `HF_TOKEN` as a Production secret, then redeploy.
+V4 includes Smart/Custom Prompt, reference images, styles, ratios, image-to-image strength, 4 variations, viewer/download, local browser history and professional responsive UI. Dedicated background-removal/edit APIs can be connected later without changing the UI.
