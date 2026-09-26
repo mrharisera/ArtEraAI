@@ -19,15 +19,175 @@
 <div id="modal" class="modal" onclick="if(event.target.id==='modal')modal.classList.remove('on')"><div class="modalbox"><button class="close" onclick="modal.classList.remove('on')">Close</button><img id="big"></div></div><div id="toastbox" class="toast"></div>
 <script>
 let mode='smart',style='Realistic',ratio='1:1',count=1,refData=null,current='';
-const styles=['Realistic','Cinematic','Premium Poster','3D Render','Digital Art','Anime'],ratios=['1:1','4:5','9:16','16:9'];
-function chips(id,arr,cb){document.getElementById(id).innerHTML=arr.map((x,i)=>`<button class="chip ${i?'':'on'}" data-v="${x}">${x}</button>`).join('');document.querySelectorAll('#'+id+' .chip').forEach(b=>b.onclick=()=>{document.querySelectorAll('#'+id+' .chip').forEach(x=>x.classList.remove('on'));b.classList.add('on');cb(b.dataset.v)})}
-chips('styles',styles,x=>style=x);chips('ratios',ratios,x=>ratio=x);chips('counts',['1 Image','4 Variations'],x=>{count=x[0]=='4'?4:1});
-function selectCount(){document.querySelectorAll('#counts .chip').forEach((b,i)=>b.classList.toggle('on',(count===4&&i===1)||(count===1&&i===0)))}
-strength.oninput=()=>sv.textContent=strength.value+'%';
-function ref(e){let f=e.target.files[0];if(!f)return;let r=new FileReader();r.onload=()=>{refData=r.result;refimg.src=refData;refbox.style.display='flex'};r.readAsDataURL(f)}
-function removeRef(){refData=null;file.value='';refbox.style.display='none'}
-function toast(t){toastbox.textContent=t;toastbox.style.display='block';setTimeout(()=>toastbox.style.display='none',2500)}
-async function generate(){let p=prompt.value.trim();if(!p)return toast('Please describe your idea first.');gen.disabled=true;gen.textContent='Generating…';status.textContent='Creating your artwork…';try{let r=await fetch('/api/generate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({prompt:p,style,ratio,count,strength:+strength.value,reference:refData})});let d=await r.json();if(!r.ok)throw Error(d.error||'Generation failed');let u=d.images||[];if(!u.length)throw Error('No image returned');current=u[0];out.src=current;result.style.display='block';status.textContent=`Generated ${u.length} image${u.length>1?'s':''}.`;let h=JSON.parse(localStorage.artera_history||'[]');h=[...u,...h].slice(0,12);localStorage.artera_history=JSON.stringify(h);render();toast('Artwork generated successfully')}catch(e){status.textContent=e.message;toast(e.message)}finally{gen.disabled=false;gen.textContent='✦ Generate Artwork'}}
-function render(){let h=JSON.parse(localStorage.artera_history||'[]');hist.innerHTML=h.length?h.map(u=>`<img src="${u}" onclick="current='${u}';out.src='${u}';result.style.display='block'">`).join(''):'<span style="color:#77829a;font-size:12px">No generated images yet.</span>'}
-function view(){big.src=current||out.src;modal.classList.add('on')}function download(){let a=document.createElement('a');a.href=current||out.src;a.download='arteraai-artwork.png';a.target='_blank';a.click()}function useRef(){refData=current||out.src;refimg.src=refData;refbox.style.display='flex';toast('Current artwork set as reference')}render();
+const styles=['Realistic','Cinematic','Premium Poster','3D Render','Digital Art','Anime'];
+const ratios=['1:1','4:5','9:16','16:9'];
+
+const promptEl=document.getElementById('prompt');
+const genBtn=document.getElementById('gen');
+const statusEl=document.getElementById('status');
+const strengthEl=document.getElementById('strength');
+const strengthValueEl=document.getElementById('sv');
+const fileEl=document.getElementById('file');
+const refImgEl=document.getElementById('refimg');
+const refBoxEl=document.getElementById('refbox');
+const outEl=document.getElementById('out');
+const resultEl=document.getElementById('result');
+const bigEl=document.getElementById('big');
+const modalEl=document.getElementById('modal');
+const histEl=document.getElementById('hist');
+const toastBoxEl=document.getElementById('toastbox');
+
+function chips(id,arr,cb){
+  const wrap=document.getElementById(id);
+  wrap.innerHTML=arr.map((x,i)=>`<button class="chip ${i?'':'on'}" data-v="${x}">${x}</button>`).join('');
+  wrap.querySelectorAll('.chip').forEach(b=>{
+    b.onclick=()=>{
+      wrap.querySelectorAll('.chip').forEach(x=>x.classList.remove('on'));
+      b.classList.add('on');
+      cb(b.dataset.v);
+    };
+  });
+}
+
+chips('styles',styles,x=>style=x);
+chips('ratios',ratios,x=>ratio=x);
+chips('counts',['1 Image','4 Variations'],x=>{count=x[0]==='4'?4:1});
+
+function selectCount(){
+  document.querySelectorAll('#counts .chip').forEach((b,i)=>{
+    b.classList.toggle('on',(count===4&&i===1)||(count===1&&i===0));
+  });
+}
+
+strengthEl.oninput=()=>strengthValueEl.textContent=strengthEl.value+'%';
+
+function ref(e){
+  const f=e.target.files?.[0];
+  if(!f)return;
+  const r=new FileReader();
+  r.onload=()=>{
+    refData=r.result;
+    refImgEl.src=refData;
+    refBoxEl.style.display='flex';
+  };
+  r.readAsDataURL(f);
+}
+
+function removeRef(){
+  refData=null;
+  fileEl.value='';
+  refBoxEl.style.display='none';
+}
+
+function toast(t){
+  toastBoxEl.textContent=t;
+  toastBoxEl.style.display='block';
+  setTimeout(()=>toastBoxEl.style.display='none',2500);
+}
+
+async function generate(){
+  const p=promptEl.value.trim();
+
+  if(!p){
+    toast('Please describe your idea first.');
+    promptEl.focus();
+    return;
+  }
+
+  genBtn.disabled=true;
+  genBtn.textContent='Generating…';
+  statusEl.textContent='Creating your artwork…';
+
+  try{
+    const response=await fetch('/api/generate',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        prompt:p,
+        style,
+        ratio,
+        count,
+        strength:Number(strengthEl.value),
+        reference:refData
+      })
+    });
+
+    const raw=await response.text();
+    let data={};
+
+    try{
+      data=raw?JSON.parse(raw):{};
+    }catch{
+      throw new Error(`Server returned an invalid response (${response.status}). Please check the Vercel deployment.`);
+    }
+
+    if(!response.ok){
+      throw new Error(data.error||`Generation failed (${response.status}).`);
+    }
+
+    const images=data.images||[];
+    if(!images.length){
+      throw new Error('No image returned from the AI service.');
+    }
+
+    current=images[0];
+    outEl.src=current;
+    resultEl.style.display='block';
+    statusEl.textContent=`Generated ${images.length} image${images.length>1?'s':''}.`;
+
+    let history=[];
+    try{
+      history=JSON.parse(localStorage.getItem('artera_history')||'[]');
+    }catch{}
+
+    history=[...images,...history].slice(0,12);
+    localStorage.setItem('artera_history',JSON.stringify(history));
+    render();
+    toast('Artwork generated successfully');
+  }catch(e){
+    console.error(e);
+    statusEl.textContent=e.message||'Generation failed.';
+    toast(e.message||'Generation failed.');
+  }finally{
+    genBtn.disabled=false;
+    genBtn.textContent='✦ Generate Artwork';
+  }
+}
+
+function render(){
+  let h=[];
+  try{
+    h=JSON.parse(localStorage.getItem('artera_history')||'[]');
+  }catch{}
+
+  histEl.innerHTML=h.length
+    ?h.map((u,i)=>`<img src="${u}" alt="Generated artwork ${i+1}" onclick="current='${u}';outEl.src='${u}';resultEl.style.display='block'">`).join('')
+    :'<span style="color:#77829a;font-size:12px">No generated images yet.</span>';
+}
+
+function view(){
+  bigEl.src=current||outEl.src;
+  modalEl.classList.add('on');
+}
+
+function download(){
+  const url=current||outEl.src;
+  if(!url)return toast('Generate an artwork first.');
+  const a=document.createElement('a');
+  a.href=url;
+  a.download='arteraai-artwork.png';
+  a.target='_blank';
+  a.click();
+}
+
+function useRef(){
+  const url=current||outEl.src;
+  if(!url)return toast('Generate an artwork first.');
+  refData=url;
+  refImgEl.src=refData;
+  refBoxEl.style.display='flex';
+  toast('Current artwork set as reference');
+}
+
+render();
 </script></body></html>
