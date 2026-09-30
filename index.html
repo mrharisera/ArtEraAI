@@ -1,8 +1,9 @@
 <!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="ArtEraAI — premium AI image studio"><title>ArtEraAI — AI Image Studio</title><style>
 :root{--bg:#060812;--p:#0d1221;--p2:#11182a;--l:#222c47;--t:#f5f7ff;--m:#929bb5;--a:#9b5cff;--b:#ff4fc8;--c:#27d9ff}*{box-sizing:border-box}body{margin:0;background:radial-gradient(800px 450px at 80% 0,#291052,transparent 60%),radial-gradient(700px 450px at 0 20%,#06334b,transparent 55%),var(--bg);color:var(--t);font-family:Arial,sans-serif}.wrap{max-width:1200px;margin:auto;padding:22px}.nav{display:flex;justify-content:space-between;align-items:center}.brand{font-size:23px;font-weight:800;display:flex;align-items:center;gap:10px}.logo{width:42px;height:42px;border-radius:13px;display:grid;place-items:center;background:#121326;border:1px solid #8d59ff;font-size:22px}.nav button,.chip,.tool,.action{border:1px solid var(--l);background:#0b1020;color:#d9deeb;border-radius:10px;padding:9px 12px}.hero{text-align:center;padding:55px 10px 30px}.badge{display:inline-block;border:1px solid #412e69;background:#151026;padding:7px 12px;border-radius:99px;font-size:12px}.hero h1{font-size:clamp(42px,7vw,74px);margin:17px auto 12px;max-width:850px}.grad{background:linear-gradient(90deg,#fff,#d6b9ff,#61e7ff);color:transparent;background-clip:text}.hero p{max-width:680px;margin:auto;color:var(--m);line-height:1.7}.grid{display:grid;grid-template-columns:1.2fr .8fr;gap:18px}.panel{background:#0d1221ee;border:1px solid var(--l);border-radius:21px;padding:19px;box-shadow:0 20px 70px #0005}.tabs{display:flex;background:#080c18;padding:4px;border-radius:12px;margin-bottom:15px}.tabs button{flex:1;border:0;background:transparent;color:#8992aa;padding:11px;border-radius:9px}.tabs .on{background:#20263a;color:#fff}label,.label{display:block;color:#bdc5d8;font-size:13px;margin:14px 0 8px}textarea{width:100%;min-height:145px;background:#080c18;color:white;border:1px solid #29334d;border-radius:14px;padding:14px;resize:vertical}.upload{display:block;text-align:center;border:1px dashed #3b4663;padding:15px;border-radius:13px;color:#8f99b0;background:#080c18}.upload input{display:none}.ref{display:none;align-items:center;gap:10px;margin-top:9px}.ref img{width:58px;height:58px;object-fit:cover;border-radius:10px}.chips{display:flex;flex-wrap:wrap;gap:7px}.chip.on{background:#28174f;border-color:#8b5cff;color:white}.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}.range{width:100%;accent-color:#a05cff}.primary{width:100%;margin-top:18px;border:0;border-radius:14px;padding:14px;color:white;font-weight:800;background:linear-gradient(90deg,#7d4dff,#d34ee4)}.primary:disabled{opacity:.55}.status{color:#8994ad;font-size:12px;margin-top:10px;min-height:18px}.result{display:none;margin-top:14px}.result img{width:100%;max-height:530px;object-fit:contain;background:#05070d;border-radius:14px}.actions{display:flex;gap:8px;margin-top:8px}.actions button{flex:1}.toolgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.tool{text-align:left;padding:14px}.tool b{display:block;margin-bottom:4px}.tool span{font-size:11px;color:#7d88a2}.history{margin:25px 0}.historygrid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.historygrid img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:10px;cursor:pointer}.features{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.feature{border:1px solid var(--l);padding:15px;border-radius:14px;background:#0b1020}.feature span{color:#7f89a2;font-size:12px}.modal{position:fixed;inset:0;background:#000d;display:none;place-items:center;padding:20px;z-index:5}.modal.on{display:grid}.modalbox{max-width:900px;background:#0d1221;border:1px solid var(--l);padding:14px;border-radius:18px}.modalbox img{max-width:100%;max-height:78vh}.close{float:right;margin-bottom:8px}.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#171e31;border:1px solid #34405e;padding:11px 15px;border-radius:10px;display:none;z-index:10;font-size:13px}footer{text-align:center;color:#68738e;padding:30px 0 12px;font-size:12px}@media(max-width:850px){.grid{grid-template-columns:1fr}.features{grid-template-columns:1fr 1fr}}@media(max-width:520px){.wrap{padding:14px}.row{grid-template-columns:1fr}.features{grid-template-columns:1fr}.historygrid{grid-template-columns:repeat(3,1fr)}.nav button{display:none}}
+.studioPanel{display:none;margin-top:14px}.studioPanel.on{display:block;animation:studioIn .22s ease}.studioHead{display:flex;justify-content:space-between;gap:10px;align-items:center}.studioHead h3{margin:0}.studioHint{color:#7f89a2;font-size:12px}.studioSource{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}.studioSource button{border:1px solid var(--l);background:#0b1020;color:#d9deeb;border-radius:10px;padding:9px 11px}.studioSource .on{border-color:#9b5cff;background:#28174f;color:#fff}.studioPrompt{width:100%;min-height:100px;margin-top:8px}.studioActions{display:flex;gap:8px;margin-top:10px}.studioActions button{flex:1}.miniResult{display:none;margin-top:12px}.miniResult.on{display:block}.miniResult img{width:100%;max-height:420px;object-fit:contain;border-radius:14px;background:#05070d}.varGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:10px}.varGrid img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:10px;cursor:pointer;border:1px solid #26314d}.checker{background-image:linear-gradient(45deg,#1a2031 25%,transparent 25%),linear-gradient(-45deg,#1a2031 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#1a2031 75%),linear-gradient(-45deg,transparent 75%,#1a2031 75%);background-size:18px 18px;background-position:0 0,0 9px,9px -9px,-9px 0}@keyframes studioIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}@media(max-width:520px){.studioActions{flex-direction:column}.varGrid{grid-template-columns:1fr 1fr}}
 </style></head><body><div class="wrap">
 <header class="nav"><div class="brand"><div class="logo">✦</div>ArtEraAI</div><div><button onclick="document.getElementById('studio').scrollIntoView({behavior:'smooth'})">Studio</button> <button onclick="document.getElementById('history').scrollIntoView({behavior:'smooth'})">History</button></div></header>
-<section class="hero"><div class="badge">AI IMAGE STUDIO • V4</div><h1>Turn ideas into <span class="grad">stunning visuals.</span></h1><p>Generate, transform and refine images with a premium AI creative workspace for posters, portraits, concepts and social content.</p></section>
+<section class="hero"><div class="badge">AI IMAGE STUDIO • V4.1</div><h1>Turn ideas into <span class="grad">stunning visuals.</span></h1><p>Generate, transform and refine images with a premium AI creative workspace for posters, portraits, concepts and social content.</p></section>
 <section id="studio" class="grid"><div class="panel">
 <div class="tabs"><button id="smart" class="on" onclick="mode='smart';smart.classList.add('on');custom.classList.remove('on')">✨ Smart Prompt</button><button id="custom" onclick="mode='custom';custom.classList.add('on');smart.classList.remove('on')">⌘ Custom Prompt</button></div>
 <div class="label">Describe your idea</div><textarea id="prompt" placeholder="Example: cinematic premium food poster featuring a juicy burger, dramatic studio lighting, realistic textures..."></textarea>
@@ -12,10 +13,11 @@
 <div class="label">Generate</div><div class="chips" id="counts"></div><button id="gen" class="primary" onclick="generate()">✦ Generate Artwork</button><div id="status" class="status"></div>
 <div id="result" class="result"><img id="out"><div class="actions"><button class="action" onclick="view()">View</button><button class="action" onclick="download()">Download</button><button class="action" onclick="useRef()">Use as Reference</button></div></div>
 </div>
-<aside class="panel"><h3>AI Studio Tools</h3><div class="toolgrid"><button class="tool" onclick="toast('Edit Image workflow selected')"><b>✏️ Edit Image</b><span>Refine a generated result</span></button><button class="tool" onclick="toast('Remove Background workflow selected')"><b>🪄 Remove Background</b><span>Create a clean cutout</span></button><button class="tool" onclick="toast('Background Replace workflow selected')"><b>🌄 Background Replace</b><span>Describe a new scene</span></button><button class="tool" onclick="count=4;selectCount()"><b>◈ 4 Variations</b><span>Explore multiple directions</span></button></div><div class="label">V4 workflow</div><p style="color:#7f89a2;font-size:12px;line-height:1.7">Generate → review → use the result as a reference → generate again. Recent results are stored locally in this browser.</p></aside></section>
+<aside class="panel"><h3>AI Studio Tools <small style="color:#7f89a2;font-size:11px">V4.1</small></h3><div class="toolgrid"><button class="tool" onclick="openStudio('edit')"><b>✏️ Edit Image</b><span>Refine a generated result</span></button><button class="tool" onclick="openStudio('remove')"><b>🪄 Remove Background</b><span>Create a clean cutout</span></button><button class="tool" onclick="openStudio('background')"><b>🌄 Background Replace</b><span>Describe a new scene</span></button><button class="tool" onclick="openStudio('variations')"><b>◈ 4 Variations</b><span>Explore multiple directions</span></button></div><div class="label">V4.1 workflow</div><p style="color:#7f89a2;font-size:12px;line-height:1.7">Tap a tool to open its workspace here — no new page. Use your uploaded image or the current artwork, apply an operation, then keep refining.</p></aside>
+<section id="studioToolsPanel" class="panel studioPanel"><div class="studioHead"><div><h3 id="studioTitle">AI Studio</h3><div id="studioHint" class="studioHint">Work on the current artwork without leaving this page.</div></div><button class="action" onclick="closeStudio()">Close</button></div><div class="label">Image source</div><div class="studioSource"><button id="srcCurrent" onclick="setStudioSource('current')">Use Current Artwork</button><button id="srcUpload" onclick="document.getElementById('studioFile').click()">Upload Image</button><input id="studioFile" type="file" accept="image/*" style="display:none" onchange="studioUpload(event)"></div><div id="studioPreviewWrap" class="miniResult"><img id="studioPreview" alt="Studio source preview"></div><div id="studioPromptWrap"><div class="label" id="studioPromptLabel">What would you like to change?</div><textarea id="studioPrompt" class="studioPrompt" placeholder="Describe the edit..."></textarea></div><div id="studioActions" class="studioActions"><button id="studioRun" class="primary" onclick="runStudioTool()">Apply</button></div><div id="studioStatus" class="status"></div><div id="studioOutput" class="miniResult"><img id="studioOutputImg" alt="Studio result"><div class="actions"><button class="action" onclick="useStudioResult()">Use Result</button><button class="action" onclick="downloadStudioResult()">Download</button></div><div id="studioVariations" class="varGrid"></div></div></section>
 <section class="history" id="history"><h2>Recent History</h2><div class="panel"><div id="hist" class="historygrid"></div></div></section>
 <section class="history"><h2>Built for creative work</h2><div class="features"><div class="feature"><b>⚡ Fast workflow</b><br><span>Prompt, generate and refine in one studio.</span></div><div class="feature"><b>🖼️ Reference aware</b><br><span>Guide generations with your own image.</span></div><div class="feature"><b>📱 Responsive</b><br><span>Optimized for mobile and desktop.</span></div><div class="feature"><b>🔐 Secure API</b><br><span>Provider token stays server-side.</span></div></div></section>
-<footer>ArtEraAI • AI Image Studio<br>Created by Haris King Era</footer></div>
+<footer>ArtEraAI • AI Image Studio V4.1<br>Created by Haris King Era</footer></div>
 <div id="modal" class="modal" onclick="if(event.target.id==='modal')modal.classList.remove('on')"><div class="modalbox"><button class="close" onclick="modal.classList.remove('on')">Close</button><img id="big"></div></div><div id="toastbox" class="toast"></div>
 <script>
 let mode='smart',style='Realistic',ratio='1:1',count=1,refData=null,current='';
@@ -189,5 +191,121 @@ function useRef(){
   toast('Current artwork set as reference');
 }
 
+let studioMode='',studioSource=null,studioResult=null;
+const studioPanelEl=document.getElementById('studioToolsPanel');
+const studioTitleEl=document.getElementById('studioTitle');
+const studioHintEl=document.getElementById('studioHint');
+const studioPromptEl=document.getElementById('studioPrompt');
+const studioPromptLabelEl=document.getElementById('studioPromptLabel');
+const studioRunEl=document.getElementById('studioRun');
+const studioStatusEl=document.getElementById('studioStatus');
+const studioPreviewWrapEl=document.getElementById('studioPreviewWrap');
+const studioPreviewEl=document.getElementById('studioPreview');
+const studioOutputEl=document.getElementById('studioOutput');
+const studioOutputImgEl=document.getElementById('studioOutputImg');
+const studioVariationsEl=document.getElementById('studioVariations');
+const srcCurrentEl=document.getElementById('srcCurrent');
+const srcUploadEl=document.getElementById('srcUpload');
+
+function openStudio(mode){
+  studioMode=mode;
+  studioResult=null;
+  studioOutputEl.classList.remove('on');
+  studioVariationsEl.innerHTML='';
+  studioStatusEl.textContent='';
+  studioPanelEl.classList.add('on');
+  const cfg={
+    edit:{title:'✏️ Edit Image',hint:'Change parts of an image using a natural-language prompt.',label:'What would you like to change?',placeholder:'Example: Change the jacket to a premium white shirt and keep the person’s face and pose unchanged.',button:'Apply Edit'},
+    remove:{title:'🪄 Remove Background',hint:'Create a clean subject cutout from the selected image.',label:'Optional instruction',placeholder:'Example: Keep the person/object sharp and preserve fine edges.',button:'Remove Background'},
+    background:{title:'🌄 Background Replace',hint:'Keep the main subject and create a new scene around it.',label:'Describe the new background',placeholder:'Example: A premium Karachi city street at night with cinematic lights and realistic reflections.',button:'Replace Background'},
+    variations:{title:'◈ 4 Variations',hint:'Create four different directions from the selected image.',label:'Variation direction (optional)',placeholder:'Example: Make each variation use a different cinematic composition and lighting setup.',button:'Create 4 Variations'}
+  }[mode];
+  studioTitleEl.textContent=cfg.title;
+  studioHintEl.textContent=cfg.hint;
+  studioPromptLabelEl.textContent=cfg.label;
+  studioPromptEl.placeholder=cfg.placeholder;
+  studioPromptEl.value='';
+  studioRunEl.textContent=cfg.button;
+  setStudioSource(current||refData||null);
+  studioPanelEl.scrollIntoView({behavior:'smooth',block:'center'});
+}
+function closeStudio(){studioPanelEl.classList.remove('on')}
+function setStudioSource(source){
+  const value=source==='current' ? (current||outEl.src) : (source==='upload'?studioSource:source);
+  if(value && typeof value==='string' && value.startsWith('data:image/')){
+    studioSource=value;
+    studioPreviewEl.src=value;
+    studioPreviewWrapEl.classList.add('on');
+    srcCurrentEl.classList.toggle('on',source==='current');
+  }else if(source!=='upload'){
+    studioSource=null;
+    studioPreviewWrapEl.classList.remove('on');
+    srcCurrentEl.classList.remove('on');
+    toast('Generate or upload an image first.');
+  }
+}
+function studioUpload(e){
+  const f=e.target.files?.[0];
+  if(!f)return;
+  const r=new FileReader();
+  r.onload=()=>{studioSource=r.result;studioPreviewEl.src=studioSource;studioPreviewWrapEl.classList.add('on');srcCurrentEl.classList.remove('on');toast('Studio image loaded');};
+  r.readAsDataURL(f);
+}
+async function runStudioTool(){
+  if(!studioSource){toast('Please choose an image first.');return;}
+  const instruction=studioPromptEl.value.trim();
+  if((studioMode==='edit'||studioMode==='background')&&!instruction){toast('Please describe the change first.');studioPromptEl.focus();return;}
+  studioRunEl.disabled=true;
+  studioRunEl.textContent='Working…';
+  studioStatusEl.textContent='AI Studio is processing your image…';
+  studioOutputEl.classList.remove('on');
+  try{
+    const body={operation:studioMode,reference:studioSource,prompt:instruction,style,ratio,strength:Number(strengthEl.value),count:studioMode==='variations'?4:1};
+    const response=await fetch('/api/generate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+    const raw=await response.text();
+    let data={};try{data=raw?JSON.parse(raw):{}}catch{throw new Error(`Server returned an invalid response (${response.status}).`)}
+    if(!response.ok)throw new Error(data.error||`Studio operation failed (${response.status}).`);
+    if(studioMode==='remove'){
+      if(!data.mask)throw new Error('Background-removal mask was not returned.');
+      const cutout=await applyMaskToImage(studioSource,data.mask);
+      studioResult=cutout;
+      studioOutputImgEl.src=cutout;
+      studioOutputImgEl.classList.add('checker');
+      studioVariationsEl.innerHTML='';
+    }else{
+      const imgs=data.images||[];
+      if(!imgs.length)throw new Error('No studio image returned.');
+      studioResult=imgs[0];
+      studioOutputImgEl.src=imgs[0];
+      studioOutputImgEl.classList.remove('checker');
+      studioVariationsEl.innerHTML=imgs.map((u,i)=>`<img src="${u}" alt="Variation ${i+1}" onclick="selectStudioVariation('${u.replaceAll("'","\\'")}')">`).join('');
+    }
+    studioOutputEl.classList.add('on');
+    studioStatusEl.textContent='Studio operation completed.';
+    toast('AI Studio result ready');
+  }catch(e){console.error(e);studioStatusEl.textContent=e.message||'Studio operation failed.';toast(e.message||'Studio operation failed.')}finally{studioRunEl.disabled=false;studioRunEl.textContent={edit:'Apply Edit',remove:'Remove Background',background:'Replace Background',variations:'Create 4 Variations'}[studioMode]||'Apply';}
+}
+function selectStudioVariation(url){studioResult=url;studioOutputImgEl.src=url;toast('Variation selected')}
+function useStudioResult(){
+  if(!studioResult)return;
+  current=studioResult;outEl.src=studioResult;resultEl.style.display='block';
+  let h=[];try{h=JSON.parse(localStorage.getItem('artera_history')||'[]')}catch{}
+  h=[studioResult,...h].slice(0,12);localStorage.setItem('artera_history',JSON.stringify(h));render();
+  toast('Studio result applied to main canvas');
+}
+function downloadStudioResult(){
+  if(!studioResult)return;
+  const a=document.createElement('a');a.href=studioResult;a.download=studioMode==='remove'?'arteraai-cutout.png':'arteraai-studio-result.png';a.click();
+}
+function applyMaskToImage(imageUrl,maskUrl){
+  return new Promise((resolve,reject)=>{
+    const img=new Image(),mask=new Image();
+    let loaded=0;
+    const done=()=>{loaded++;if(loaded<2)return;try{
+      const c=document.createElement('canvas');c.width=img.naturalWidth;c.height=img.naturalHeight;const ctx=c.getContext('2d');ctx.drawImage(img,0,0);const data=ctx.getImageData(0,0,c.width,c.height);const mc=document.createElement('canvas');mc.width=c.width;mc.height=c.height;const mctx=mc.getContext('2d');mctx.drawImage(mask,0,0,c.width,c.height);const md=mctx.getImageData(0,0,c.width,c.height).data;for(let i=0;i<data.data.length;i+=4){data.data[i+3]=md[i];}ctx.putImageData(data,0,0);resolve(c.toDataURL('image/png'));
+    }catch(e){reject(e)}};
+    img.onload=done;mask.onload=done;img.onerror=()=>reject(new Error('Could not load source image'));mask.onerror=()=>reject(new Error('Could not load background mask'));img.src=imageUrl;mask.src=maskUrl;
+  });
+}
 render();
 </script></body></html>
